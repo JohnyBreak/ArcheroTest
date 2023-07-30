@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Crawl Animator Override Controller
+  m_Controller: {fileID: 9100000, guid: eb13236772c17c34db32fc1c84a81d23, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 759797b4ed616c546976800202d38165, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 94152399e0060494f96c7460c242fff5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0bcc26542e6ff3348a5d03c5b12c1f52, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5c7bdfe2b557cf64aab345aca2339012, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 07231265de516204a956083b5805f987, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 24e086522e47b1344b2fd1467e18fa2f, type: 2}

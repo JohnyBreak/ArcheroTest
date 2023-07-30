@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d23b37b7d787274194fb04f83326249, type: 3}
+  m_Name: Flying Dash Enemy State
+  m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: 8373ec831005f7d4ea8afd7bc7aa581f, type: 2}
+  Transitions:
+  - Decision: {fileID: 11400000, guid: 8dc4c4f4201a6cc4eb005927c4567bfc, type: 2}
+    PositiveState: {fileID: 11400000, guid: 624dced6f28b78a40a5e89515657d658, type: 2}
+    NegativeState: {fileID: 11400000, guid: 2e65f0753174c61498e3d199f024fd4c, type: 2}

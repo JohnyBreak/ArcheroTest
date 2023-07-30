@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d23b37b7d787274194fb04f83326249, type: 3}
+  m_Name: Simple Idle Enemy State
+  m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: a53b71335d102804fb85496b6f67f732, type: 2}
+  Transitions:
+  - Decision: {fileID: 11400000, guid: 8fbcbc08596347743be848d2d92aa74d, type: 2}
+    PositiveState: {fileID: 11400000, guid: 51c27e493c0763948af6031e0a731c6c, type: 2}
+    NegativeState: {fileID: 11400000, guid: 2e65f0753174c61498e3d199f024fd4c, type: 2}
+  - Decision: {fileID: 11400000, guid: 10191362c43f55840863079f785665ad, type: 2}
+    PositiveState: {fileID: 11400000, guid: e40c97b54c9e42e41a5598f15d5066cb, type: 2}
+    NegativeState: {fileID: 11400000, guid: 2e65f0753174c61498e3d199f024fd4c, type: 2}
