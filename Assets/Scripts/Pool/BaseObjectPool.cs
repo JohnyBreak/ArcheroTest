@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseObjectPool<T> : MonoBehaviour where T : IPoolable
+public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 {
     [SerializeField] protected T _object;
     protected T _objectPrefab;
@@ -13,41 +13,40 @@ public abstract class BaseObjectPool<T> : MonoBehaviour where T : IPoolable
 
     public static BaseObjectPool<T> Instance => _instance;
 
-    protected virtual void Awake() 
+    protected virtual void Awake()
     {
         if (_instance == null) _instance = this;
+        _objectPrefab = _object.gameObject.GetComponent<T>();
         _pooledObjects = new List<T>();
     }
 
-    public abstract T GetPooledObject();
-    //{
-    //    for (int i = 0; i < _pooledObjects.Count; i++)
-    //    {
-    //        var tempT = _pooledObjects[i] as T;
-    //        if (tempT == null) continue;
+    public T GetPooledObject()
+    {
+        for (int i = 0; i < _pooledObjects.Count; i++)
+        {
+            var tempT = _pooledObjects[i];
+            if (tempT == null) continue;
 
-    //        if (!_pooledObjects[i].gameObject.activeInHierarchy)
-    //        {
-    //            _pooledObjects[i].transform.SetParent(null);
-    //            return (T)_pooledObjects[i];
-    //        }
+            if (!_pooledObjects[i].gameObject.activeInHierarchy)
+            {
+                _pooledObjects[i].transform.SetParent(null);
+                return (T)_pooledObjects[i];
+            }
 
-    //    }
-    //    T o = CreateNewObject<T>();
-    //    o.gameObject.transform.SetParent(null);
-    //    return o;
-    //}
+        }
+        T o = CreateNewObject();
+        o.gameObject.transform.SetParent(null);
+        return o;
+    }
 
-    protected abstract T CreateNewObject();
-    //{
-    //    var obj = (IPoolable)Instantiate(_objectPrefab.@object, transform.position, Quaternion.identity);
+    protected T CreateNewObject()
+    {
+        T obj = Instantiate(_objectPrefab, transform.position, Quaternion.identity);
 
-    //    T Tobj = obj as T;
-    //    DisableObject(Tobj);
-    //    _pooledObjects.Add(Tobj);
-
-    //    return Tobj;
-    //}
+        DisableObject(obj);
+        _pooledObjects.Add(obj);
+        return obj;
+    }
 
     public void DisableObject(T obj)
     {
