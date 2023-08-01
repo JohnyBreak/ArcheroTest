@@ -13,12 +13,24 @@ public class PlayerAnimation : MonoBehaviour
 
     private int _movementSpeed = Animator.StringToHash("MovementSpeed");
     private int _isAttacking = Animator.StringToHash("IsAttacking");
+    private int _movementSpeedMultiplier = Animator.StringToHash("MoveSpeedMultiplier");
+    private int _attackSpeedMultiplier = Animator.StringToHash("AttackSpeedMultiplier");
 
     public Animator Animator => _animator;
 
     public void SetMovementAnimation(float currentMovement)
     {
         _animator.SetFloat(_movementSpeed, currentMovement, _smoothBlend, Time.deltaTime);
+    }
+
+    public void SetMoveSpeedMultiplier(float speed) 
+    {
+        _animator.SetFloat(_movementSpeedMultiplier, speed);
+    }
+
+    public void SetAttackSpeedMultiplier(float speed)
+    {
+        _animator.SetFloat(_attackSpeedMultiplier, speed);
     }
 
     public void SetStance(Stance stance)

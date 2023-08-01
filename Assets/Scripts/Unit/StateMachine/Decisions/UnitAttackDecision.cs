@@ -7,6 +7,7 @@ public class UnitAttackDecision : UnitBaseDecision
     {
         if (TargetInRange(machine, machine.TargetTransform) && !machine.CheckIfMachineCountDownElapsed(machine.Config.IdleTime))
         {
+            machine.UnitAnimations.TriggerAttack();
             return true;
         }
         else 

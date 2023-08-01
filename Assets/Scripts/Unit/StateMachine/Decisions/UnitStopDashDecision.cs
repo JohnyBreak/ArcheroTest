@@ -7,6 +7,7 @@ public class UnitStopDashDecision : UnitBaseDecision
     {
         if (CheckDistance(machine, machine.TargetPosition))
         {
+            machine.UnitAnimations.TriggerIdle();
             return true;
         }
         else return false;

@@ -7,6 +7,7 @@ public class BeforeDashUnitIdleDecision : UnitBaseDecision
     {
         if (!TargetInRange(machine, machine.TargetTransform) || machine.CheckIfMachineCountDownElapsed(machine.Config.IdleTime))
         {
+            machine.UnitAnimations.TriggerIdle();
             return true;
         }
         else

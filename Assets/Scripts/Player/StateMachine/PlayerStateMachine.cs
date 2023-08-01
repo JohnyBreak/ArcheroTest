@@ -19,7 +19,6 @@ public class PlayerStateMachine : MonoBehaviour
     private Transform _cameraTransform;
     [SerializeField] private float _movementSpeed = 7.5f;
 
-    private float _shootDelay;
     private PlayerMovement _controller;
     private PlayerAnimation _playerAnimation;
     private Vector2 _currentMovementInput;
@@ -35,8 +34,8 @@ public class PlayerStateMachine : MonoBehaviour
     //state
     protected PlayerBaseState _currentState;
     protected PlayerStateFactory _states;
-    
-#endregion
+
+    #endregion
 
     #region Properties
     // getters & setters
@@ -57,23 +56,29 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Vector3 CameraRelativeMovement => _cameraRelativeMovement;
     public FieldOfView FieldOfView => _fieldOfView;
-    public float ShootDelay => _shootDelay;
+    public float AttackSpeed { get; private set; }
     public CancellationTokenSource ShootCancelToken;
-    [HideInInspector] public BulletConfig BulletConfig;
-
+    public BulletConfig BulletConfig { get; private set; }
+    public UnitConfig UnitConfig { get; private set; }
     #endregion
 
-    public void SetShootDelay(float delay) 
+    public void SetConfigs(UnitConfig unit, BulletConfig bulet)
     {
-        if (delay < 0.1f) delay = 0.1f;
+        UnitConfig = unit;
+        BulletConfig = bulet;
+    }
 
-        _shootDelay = delay;
+    public void SetAttackSpeed(float speed)
+    {
+        if (speed < 0.1f) speed = 0.1f;
+
+        AttackSpeed = speed;
     }
 
     private void Awake()
     {
         _controller = GetComponent<PlayerMovement>();
-        
+
         _states = new PlayerStateFactory(this);
         _currentState = _states.Grounded();
         _currentState.EnterState();
@@ -98,7 +103,7 @@ public class PlayerStateMachine : MonoBehaviour
         _controller.SimpleMove(_cameraRelativeMovement);
     }
 
-    private float GetMagnitudedMoveVectorForAnimation() 
+    private float GetMagnitudedMoveVectorForAnimation()
     {
         Vector3 animMoveVectorMagnitude = _currentMovement;
         animMoveVectorMagnitude.y = 0;
@@ -107,20 +112,20 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnDisable()
     {
-        if(ShootCancelToken != null) ShootCancelToken.Cancel();
+        if (ShootCancelToken != null) ShootCancelToken.Cancel();
     }
 
-    public void SetCameraTransform(Transform tr) 
+    public void SetCameraTransform(Transform tr)
     {
         _cameraTransform = tr;
     }
 
-    public void SetAnimations(PlayerAnimation anim) 
+    public void SetAnimations(PlayerAnimation anim)
     {
         _playerAnimation = anim;
     }
 
-    private Vector3 GetCameraRelativeMoveDirection() 
+    private Vector3 GetCameraRelativeMoveDirection()
     {
         Vector3 cameraForward = _cameraTransform.forward;
         Vector3 cameraRight = _cameraTransform.right;

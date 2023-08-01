@@ -5,13 +5,41 @@ using UnityEngine;
 public class UnitAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    private int _move = Animator.StringToHash("Move");
-    private int _idle = Animator.StringToHash("Idle");
-    private int _attack = Animator.StringToHash("Attack");
+    private int _move = Animator.StringToHash("IsMove");
+    private int _idle = Animator.StringToHash("IsIdle");
+    private int _attack = Animator.StringToHash("IsAttack");
+    private int _movementSpeedMultiplier = Animator.StringToHash("MoveSpeedMultiplier");
+    private int _attackSpeedMultiplier = Animator.StringToHash("AttackSpeedMultiplier");
 
-    public void TriggerMove() { _animator.SetTrigger(_move); }
-    public void TriggerIdle() { _animator.SetTrigger(_idle); }
-    public void TriggerAttack() { _animator.SetTrigger(_attack); }
+    public void SetMoveSpeedMultiplier(float speed)
+    {
+        _animator.SetFloat(_movementSpeedMultiplier, speed);
+    }
+
+    public void SetAttackSpeedMultiplier(float speed)
+    {
+        _animator.SetFloat(_attackSpeedMultiplier, speed);
+    }
+
+    public void TriggerMove() 
+    {
+        _animator.SetBool(_attack, false);
+        _animator.SetBool(_idle, false);
+        _animator.SetBool(_move, true); 
+    }
+    public void TriggerIdle() 
+    {
+        _animator.SetBool(_attack, false);
+        _animator.SetBool(_move, false);
+        _animator.SetBool(_idle, true);
+    }
+
+    public void TriggerAttack() 
+    {
+        _animator.SetBool(_move, false);
+        _animator.SetBool(_idle, true);
+        _animator.SetBool(_attack, true);
+    }
 
     private void Awake()
     {

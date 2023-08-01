@@ -16,10 +16,18 @@ public class Enemy : MonoBehaviour
         _healthSystem.SetMaxHealth(_config.MaxHealth);
         _healthSystem.DeathEvent += OnDeath;
         _stateMachine.Config = _config;
-        _stateMachine.BulletConfig = _bulletConfig;
         _stateMachine.SetAnimations(_animations);
+
+        _animations.SetMoveSpeedMultiplier(1 + (_config.MoveSpeed / 100.0f));
+        float atkSpeedTemp = 1.0f + (_config.AttackSpeed / 100f);
+        float timeBeforeAttack = _config.AnimationSettings.BeforeAttackTime / atkSpeedTemp;
+        float timeAfterAttack = _config.AnimationSettings.AfterAttackTime / atkSpeedTemp;
+        float totalAttackSpeed = timeBeforeAttack + timeAfterAttack;
+        _animations.SetAttackSpeedMultiplier(atkSpeedTemp);
+        _stateMachine.SetAttackSpeed(totalAttackSpeed);
+        _stateMachine.SetConfigs(_config, _bulletConfig);
         _stateMachine.SetNavMeshAgent(_agent);
-        _agent.speed = _config.MoveSpeed;
+        _agent.speed = (1 + ((_config.MoveSpeed / 100.0f) * 2));
     }
 
     private void OnDestroy()

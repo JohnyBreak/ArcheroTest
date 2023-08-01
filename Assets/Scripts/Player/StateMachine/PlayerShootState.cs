@@ -33,7 +33,7 @@ public class PlayerShootState : PlayerBaseState
         lookRotation.x = _ctx.transform.localRotation.x;
         lookRotation.z = _ctx.transform.localRotation.z;
 
-        float rotationSpeed = 7f;
+        float rotationSpeed = 9f;
         float time = 0;
         while (time < 1 && !token.IsCancellationRequested) 
         {
@@ -42,7 +42,7 @@ public class PlayerShootState : PlayerBaseState
             await System.Threading.Tasks.Task.Yield();//Delay((int)(Time.deltaTime * 1000));
         }
 
-        ShootRoutine(token);
+        ShootAsync(token);
 
         while (!token.IsCancellationRequested)
         {
@@ -53,17 +53,19 @@ public class PlayerShootState : PlayerBaseState
 
             _ctx.transform.LookAt(enemyPos, Vector3.up);
 
-            await System.Threading.Tasks.Task.Delay((int)(Time.deltaTime * 1000));
-
+            await System.Threading.Tasks.Task.Yield();//Delay((int)(Time.deltaTime * 1000));
         }
     }
 
-    private async void ShootRoutine(CancellationToken token) 
+    private async void ShootAsync(CancellationToken token) 
     {
+        
+        await System.Threading.Tasks.Task.Delay((int)(_ctx.UnitConfig.AnimationSettings.BeforeAttackTime * 1000));
+        if (!token.IsCancellationRequested) MakeShot();
 
         while (!token.IsCancellationRequested) 
         {
-            await System.Threading.Tasks.Task.Delay((int)(_ctx.ShootDelay * 1000));
+            await System.Threading.Tasks.Task.Delay((int)(_ctx.AttackSpeed * 1000));
             if (!token.IsCancellationRequested) MakeShot();
         }
     }
@@ -72,6 +74,7 @@ public class PlayerShootState : PlayerBaseState
     {
         if (GameStateManager.CurrentGameState != GameStateManager.GameState.GamePlay) return;
         if (_ctx.FieldOfView.CurrentTarget == null) return;
+
         _ctx.PlayerAnimation.ToggleAttack(true);
 
         Bullet b = BulletPool.Instance.GetPooledObject();

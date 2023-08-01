@@ -8,8 +8,9 @@ public class UnitStandIdleDecision : UnitBaseDecision
     {
         if (machine.CheckIfMachineCountDownElapsed(machine.Config.IdleTime))
         {
-            machine.ResetMachineCountDown();
             machine.UnitAnimations.TriggerIdle();
+            machine.ResetMachineCountDown();
+            
             return true;
         }
         else

@@ -11,17 +11,27 @@ public class Player : MonoBehaviour
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private HealthSystem _healthSystem;
     [SerializeField] private PlayerStateMachine _playerSM;
-    [SerializeField]  private EventBus _eventBus;
+    [SerializeField] private EventBus _eventBus;
     [SerializeField] private PlayerAnimation _anim;
 
     void Awake()
     {
         _eventBus.Subscribe<RestartLevelSignal>(OnRestartLevel);
 
-        _agent.speed = _config.MoveSpeed;
+        _agent.speed = (1 + ((_config.MoveSpeed / 100.0f) * 2));
+
+        _anim.SetMoveSpeedMultiplier(1 + (_config.MoveSpeed / 100.0f));
+
+        float atkSpeedTemp = 1.0f + (_config.AttackSpeed / 100f);
+        float timeBeforeAttack = _config.AnimationSettings.BeforeAttackTime/ atkSpeedTemp;
+        float timeAfterAttack = _config.AnimationSettings.AfterAttackTime / atkSpeedTemp;
+        float totalAttackSpeed = timeBeforeAttack + timeAfterAttack;
+
+        _anim.SetAttackSpeedMultiplier(atkSpeedTemp);
+
         _healthSystem.SetMaxHealth(_config.MaxHealth);
-        _playerSM.BulletConfig = _bulletConfig;
-        _playerSM.SetShootDelay(_config.ShootDelay);
+        _playerSM.SetConfigs(_config,_bulletConfig);
+        _playerSM.SetAttackSpeed(totalAttackSpeed);
         _playerSM.SetAnimations(_anim);
         _playerSM.SetCameraTransform(_camera);
         _healthSystem.DeathEvent += OnPlayerDeath;

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33b7e518e2b8cc42bd8949ac3dc9a71, type: 3}
   m_Name: SimpleEnemyConfig
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _moveSpeed: 100
   _maxHealth: 10
-  _shootDelay: 0.6
+  _attackSpeed: 10
+  _animationSettings: {fileID: 11400000, guid: 38c74213b35f84746b5d5312950ebad3, type: 2}
   _attackRange: 14
-  _moveTime: 1.7
-  _idleTime: 1.3
+  _moveTime: 3
+  _idleTime: 2

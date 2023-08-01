@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a482be3251dd64ba146582c22043cb, type: 3}
-  m_Name: PlayerConfig
+  m_Script: {fileID: 11500000, guid: 24cb0fe532df3cf49b947705b5af7028, type: 3}
+  m_Name: AnimationSettings
   m_EditorClassIdentifier: 
-  _moveSpeed: 200
-  _maxHealth: 30
-  _attackSpeed: 150
-  _animationSettings: {fileID: 11400000, guid: 38c74213b35f84746b5d5312950ebad3, type: 2}
+  BeforeAttackTime: 0.5
+  AfterAttackTime: 0.5

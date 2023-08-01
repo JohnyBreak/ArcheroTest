@@ -8,6 +8,7 @@ public class BeforeDashUnitAttackDecision : UnitBaseDecision
     {
         if (TargetInRange(machine, machine.TargetTransform) && !machine.CheckIfStateCountDownElapsed(machine.Config.IdleTime))
         {
+            machine.UnitAnimations.TriggerAttack();
             return true;
         }
         else

@@ -19,11 +19,12 @@ public class UnitStateMachine : MonoBehaviour
     public UnitState RemainState => _remainState;
     public Transform TargetTransform => _targetTransform;
     public NavMeshAgent Agent => _agent;
-
-    public BulletConfig BulletConfig { get; internal set; }
-
+    public BulletConfig BulletConfig { get; private set; }
+    public UnitConfig UnitConfig { get; private set; }
+    public float AttackSpeed { get; private set; }
     private Vector3 _lastAgentVelocity;
     private NavMeshPath _lastAgentPath;
+
     private float _stateTimeElapsed;
     private float _machineTimeElapsed;
 
@@ -40,6 +41,19 @@ public class UnitStateMachine : MonoBehaviour
     public void SetAnimations(UnitAnimations animations) 
     {
         _unitAnimations = animations;
+    }
+
+    public void SetConfigs(UnitConfig unit, BulletConfig bulet)
+    {
+        UnitConfig = unit;
+        BulletConfig = bulet;
+    }
+
+    public void SetAttackSpeed(float speed)
+    {
+        if (speed < 0.1f) speed = 0.1f;
+
+        AttackSpeed = speed;
     }
 
     public void RotateTo(Transform targetTransform)
@@ -93,7 +107,6 @@ public class UnitStateMachine : MonoBehaviour
 
     private void PauseAgent()
     {
-        
         _lastAgentVelocity = _agent.velocity;
         _lastAgentPath = _agent.path;
         _agent.velocity = Vector3.zero;

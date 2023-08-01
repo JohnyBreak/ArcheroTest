@@ -12,6 +12,7 @@ public class UnitDashDecision : UnitBaseDecision
             temp.y = machine.transform.position.y;
             machine.TargetPosition = temp;
             machine.ResetMachineCountDown();
+            machine.UnitAnimations.TriggerMove();
             return true;
         }
         else return false;
